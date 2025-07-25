@@ -212,5 +212,82 @@ let employeeData3: {
 
 // employeeData3.id= 2;
 
-//----------Defining a function inside an object--------------
+//----------Defining a function/ method inside an object--------------
 
+//while working with a method, we have to specify the type of the parameter inside the method and
+//also define the return type of the method
+
+let employeeData4: {
+  id: number;
+  name: string;
+  retire: (date: Date) => void; //void is the return type
+} = {
+  id: 1,
+  name: "Ymain",
+  retire: (date) => {
+    console.log(date);
+  },
+};
+employeeData4.id = 1;
+
+/* ==================================================
+                   Advance Types
+======================================================*/
+
+// ========================Type Alias=================
+//Using a type alias, we can declare a new type. We can use the new type to multiple places
+type Employee = {
+  readonly id: number;
+  name: string;
+  retire: (date: Date) => void;
+};
+
+let employeeData5: Employee = {
+  //Using the new Employee type
+  id: 1,
+  name: "",
+  retire: (date) => {
+    console.log(date);
+  },
+};
+
+// ========================Union Types=================
+
+//with union types we can give a variable or a function parameter more than one type.
+// We can declare union type by | sign
+
+function kgToLbs(weight: number | string): number {
+  //narrowing : means deciding an action based on the type
+  if (typeof weight === "number") {
+    return weight * 2.2;
+  } else {
+    return parseInt(weight) * 2.2;
+  }
+}
+
+// ========================Intersection Types=================
+//type intersection is declared by using & sign
+//In TypeScript, an intersection type allows for the combination of multiple types into a single, new type.
+// This new type possesses all the properties and members of each of the constituent types
+type Draggable = {
+  drag: () => void;
+};
+type Resizable = {
+  resize: () => void;
+};
+type UIWidget = Draggable & Resizable;
+
+let textBox: UIWidget = {
+  drag: () => {},
+  resize: () => {},
+};
+
+// ========================Literal Types===============
+//Limit the values assign to a variable
+//Literal means exact or specific. Which means by using literal type we can only specific values.
+// const quantity: 50 | 100; // Direct approach: directly assign number as type
+
+type Quantity = 50 | 100;
+const quantity: Quantity = 50; // We can only use 50 or 100 as a value of quantity
+
+type Metric = "cm" | "inch";
